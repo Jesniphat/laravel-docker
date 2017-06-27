@@ -9,6 +9,8 @@ services:
       - ./www/:/var/www/html
     ports:
       - 80:80
+    environment:
+      - TZ=Asia/Bangkok
 
   db:
     image: mariadb:latest
@@ -21,9 +23,10 @@ services:
       - ./mysql/data/:/var/lib/mysql
     environment:
       - MYSQL_ROOT_PASSWORD=rootp@ssw0rd
-      - MYSQL_DATABASE=lemp_test
-      - MYSQL_USER=lemp
+      - MYSQL_DATABASE=test
+      - MYSQL_USER=jesse
       - MYSQL_PASSWORD=p@ssw0rd
+      - TZ=Asia/Bangkok
 
   node_server:
     restart: always
@@ -33,3 +36,5 @@ services:
       - ./node_app:/src/app
     ports:
       - '8100:3000'
+    environment:
+      - TZ=Asia/Bangkok
