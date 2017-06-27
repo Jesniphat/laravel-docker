@@ -13,3 +13,5 @@ RUN apt-get update && apt-get install -y \
 RUN pecl install redis \
     && pecl install xdebug \
     && docker-php-ext-enable redis xdebug
+    
+RUN echo date.timezone=Asia/Bangkok > /usr/local/etc/php/conf.d/timezone.ini
