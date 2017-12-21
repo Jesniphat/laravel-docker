@@ -3,18 +3,20 @@ services:
 
   php:
     build: ./
-    container_name: lemp_php7_apache
+    container_name: php
     restart: always
     volumes:
       - ./php/www/:/var/www/html
+    links:
+      - db
     ports:
       - 80:80
     environment:
       - TZ=Asia/Bangkok
 
   db:
-    image: mariadb:latest
-    container_name: lemp_mariadb
+    image: mysql:latest
+    container_name: db
     ports:
       - '3306:3306'
     restart: always
@@ -28,7 +30,7 @@ services:
       - MYSQL_PASSWORD=p@ssw0rd
       - TZ=Asia/Bangkok
 
-  node_server:
+  node:
     restart: always
     build: ./node_app
     container_name: node_server
@@ -36,5 +38,7 @@ services:
       - ./node_app:/src/app
     ports:
       - '8100:3000'
+    links:
+      - db
     environment:
       - TZ=Asia/Bangkok
