@@ -6,9 +6,11 @@ RUN apt-get update && apt-get install -y \
         libmcrypt-dev \
         libpng-dev \
         libmagickwand-dev --no-install-recommends \
+        zlib1g-dev \
     && docker-php-ext-install -j5 iconv pdo pdo_mysql mysqli \
     && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
-    && docker-php-ext-install -j5 gd
+    && docker-php-ext-install -j5 gd \
+    && docker-php-ext-install zip
 
 RUN pecl install mcrypt-1.0.1 \
     && pecl install redis-4.0.0 \
