@@ -41,3 +41,16 @@ services:
       - db
     environment:
       - TZ=Asia/Bangkok
+
+  go:
+    image: golang:latest
+    restart: always
+    container_name: go
+    volumes:
+      - ./go:/var/go
+    working_dir: /var/go
+    command: sleep 7200
+    links:
+      - db
+    environment:
+      - TZ=Asia/Bangkok
