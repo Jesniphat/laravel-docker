@@ -14,21 +14,6 @@ services:
     environment:
       - TZ=Asia/Bangkok
 
-  db:
-    image: mysql:latest
-    container_name: db
-    ports:
-      - '3306:3306'
-    restart: always
-    volumes:
-      - ./mysql/config/:/etc/mysql/conf.d
-    environment:
-      - MYSQL_ROOT_PASSWORD=rootp@ssw0rd
-      - MYSQL_DATABASE=test
-      - MYSQL_USER=jesse
-      - MYSQL_PASSWORD=p@ssw0rd
-      - TZ=Asia/Bangkok
-
   node:
     restart: always
     build: ./node_app
@@ -54,3 +39,28 @@ services:
       - db
     environment:
       - TZ=Asia/Bangkok
+
+  db:
+    image: mysql:latest
+    container_name: db
+    ports:
+      - '3306:3306'
+    restart: always
+    volumes:
+      - ./mysql/config/:/etc/mysql/conf.d
+    environment:
+      - MYSQL_ROOT_PASSWORD=rootp@ssw0rd
+      - MYSQL_DATABASE=test
+      - MYSQL_USER=jesse
+      - MYSQL_PASSWORD=p@ssw0rd
+      - TZ=Asia/Bangkok
+
+  mongodb:
+    image: mongo
+    container_name: mongodb
+    restart: always
+    ports:
+      - '27017:27017'
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: rootp@ssw0rd
