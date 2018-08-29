@@ -26,7 +26,7 @@ services:
       - db
     environment:
       - TZ=Asia/Bangkok
-
+    
   go:
     image: golang:latest
     restart: always
