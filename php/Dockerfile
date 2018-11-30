@@ -1,24 +1,43 @@
 FROM php:7-apache
 
-RUN apt-get update && apt-get install -y \
-        libfreetype6-dev \
-        libjpeg62-turbo-dev \
-        libmcrypt-dev \
-        libpng-dev \
-        libmagickwand-dev --no-install-recommends \
-        zlib1g-dev \
-    && docker-php-ext-install -j5 iconv \
-    && docker-php-ext-install mysqli \
-    && docker-php-ext-install pdo pdo_mysql \
-    && docker-php-ext-configure gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/ \
-    && docker-php-ext-install -j5 gd \
-    && docker-php-ext-install zip
+RUN a2enmod rewrite
+
+#Install คำสั่งสำหรับการลง package ที่ laravel required ไว้นะครับ
+RUN apt-get update \
+  && apt-get install -y \
+    cron \
+    libfreetype6-dev \
+    libicu-dev \
+    libjpeg62-turbo-dev \
+    libpng-dev \
+    libxslt1-dev \
+    openssh-server \
+    openssh-client \
+    rsync
+
+RUN docker-php-ext-configure \
+  gd --with-freetype-dir=/usr/include/ --with-jpeg-dir=/usr/include/
+
+# ตามด้วยคำสั่งสำหรับการลง php extension ครับ
+RUN docker-php-ext-install \
+  bcmath \
+  gd \
+  intl \
+  mbstring \
+  pdo_mysql \
+  soap \
+  xsl \
+  zip
+
+RUN apt-get install libmcrypt-dev libreadline-dev -y
 
 RUN pecl install mcrypt-1.0.1 \
     && pecl install redis-4.0.0 \
     && pecl install xdebug-2.6.0 \
-    && pecl install imagick-3.4.3 \
-    && docker-php-ext-enable mcrypt redis xdebug imagick
+    && docker-php-ext-enable mcrypt redis xdebug
 
+# อันนี้ลงเพิ่มเติมคือ composer นั้นเอง เป็นตัว package manager สำหรับการจัดการพวก dependency ของภาษา php ครับ
+RUN curl -sS https://getcomposer.org/installer | \
+  php -- --install-dir=/usr/local/bin --filename=composer
 
 RUN echo date.timezone=Asia/Bangkok > /usr/local/etc/php/conf.d/timezone.ini

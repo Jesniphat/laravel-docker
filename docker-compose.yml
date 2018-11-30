@@ -1,42 +1,16 @@
 version: '3'
 services:
 
-  php:
+  laravel:
     build: ./php
-    container_name: php
+    container_name: laravel
     restart: always
     volumes:
       - ./php/www/:/var/www/html
     links:
       - db
     ports:
-      - 80:80
-    environment:
-      - TZ=Asia/Bangkok
-
-  node:
-    restart: always
-    build: ./node_app
-    container_name: node_server
-    volumes:
-      - ./node_app:/src/app
-    ports:
-      - '8100:3000'
-    links:
-      - db
-    environment:
-      - TZ=Asia/Bangkok
-    
-  go:
-    image: golang:latest
-    restart: always
-    container_name: go
-    volumes:
-      - ./go:/var/go
-    working_dir: /var/go
-    command: sleep 7200
-    links:
-      - db
+      - 81:80
     environment:
       - TZ=Asia/Bangkok
 
@@ -54,13 +28,3 @@ services:
       - MYSQL_USER=jesse
       - MYSQL_PASSWORD=p@ssw0rd
       - TZ=Asia/Bangkok
-
-  mongodb:
-    image: mongo
-    container_name: mongodb
-    restart: always
-    ports:
-      - '27017:27017'
-    environment:
-      MONGO_INITDB_ROOT_USERNAME: root
-      MONGO_INITDB_ROOT_PASSWORD: rootp@ssw0rd
