@@ -9,3 +9,7 @@
 
 # If we don't want to use laravel command use
   Run -> composer create-project --prefer-dist laravel/laravel blog
+
+# Install lumen for make api
+  composer create-project --prefer-dist laravel/lumen blog
+  

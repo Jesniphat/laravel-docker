@@ -22,6 +22,8 @@ services:
       - ./api/www/:/var/www/html
     links:
       - db
+    ports:
+      - 88:80
     environment:
       - TZ=Asia/Bangkok
 
