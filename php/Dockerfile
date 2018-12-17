@@ -39,6 +39,5 @@ RUN pecl install mcrypt-1.0.1 \
 # อันนี้ลงเพิ่มเติมคือ composer นั้นเอง เป็นตัว package manager สำหรับการจัดการพวก dependency ของภาษา php ครับ
 RUN curl -sS https://getcomposer.org/installer | \
   php -- --install-dir=/usr/local/bin --filename=composer
-RUN export COMPOSER_ALLOW_SUPERUSER=1
 
 RUN echo date.timezone=Asia/Bangkok > /usr/local/etc/php/conf.d/timezone.ini
