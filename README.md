@@ -7,7 +7,7 @@
   
 # How to config laravel
   1. Run -> composer global require "laravel/installer"
-  2. Run -> nano .bashrc
+  2. Run -> nano ~/.bashrc
   3. Add -> export PATH="$PATH:$HOME/.config/composer/vendor/bin"
   4. Add -> export PATH="$HOME/.composer/vendor/bin:$PATH" **for ubuntu 18.04
   5. Run -> source ~/.bashrc
